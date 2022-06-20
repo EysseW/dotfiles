@@ -1,0 +1,298 @@
+seat seat0 xcursor_theme MacWidows 32
+
+bindsym --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym --locked XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+
+for_window [app_id="dunst"] opacity 0.75
+for_window [app_id="Thunar"] opacity 0.95
+for_window [app_id="discord"] opacity set 0.95
+for_window [app_id="Discord"] opacity set 0.95
+for_window [app_id="steam"] floating enable
+for_window [app_id="Thunar"] floating enable
+for_window [app_id="Kitty"] floating enable
+for_window [floating] border pixel 2
+#for_window [app_id=".*"] floating enable
+#for_window [app_id=".*"] border normal
+
+# GTK fix
+include /etc/sway/config.d/*
+
+# Aliases
+set $left apostrophe
+set $down o
+set $up comma
+set $right period
+set $mod Mod4
+set $menu rofi
+set $term alacritty
+set $mode_gaps Toggle gaps: (1) off (2) very little (3) little (4)  very (5) much more (6) stop (7) I said stop
+
+# Window rules
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+for_window [app_id="zenity"] floating enable
+for_window [app_id="yakuake"] floating enable
+for_window [class="(?i)firefox"] title_format "<span foreground='red'>%title</span>"
+for_window [class=".*"] title_format "<b>%title</b>"
+for_window [class="nwg"] opacity 0.3
+for_window [class="Discord"] opacity 0.3
+
+	## Equipment
+# Displays
+output DVI-D-1 pos 0 0 res 1280x1024
+output HDMI-A-1 pos 1280 0 res 1920x1080
+workspace 1 output DVI-D-1
+
+bindsym Alt+period focus output left
+bindsym Alt+apostrophe focus output right
+
+# Keyboard
+input type:keyboard {
+  repeat_delay 220
+  repeat_rate 45
+}
+
+#bindsym $mod+x
+
+input "type:keyboard" {
+    xkb_layout custom,us
+    xkb_options grp:rctrl_toggle
+    xkb_model "pc104"
+}
+
+# Mouse
+
+input type:pointer {
+  accel_profile flat
+  pointer_accel -0.1
+  scroll_factor 1
+}
+
+focus_follows_mouse no
+
+
+	## Customization of looks
+
+seat seat0 xcursor_theme MacWidows 32
+font pango:JetBrains Mono 10
+
+# Window Appearance
+floating_modifier $mod normal
+client.focused #668855 #668855 #ffffff #2e9ef4     #232323
+client.focused_inactive #343423 #343423 #ffffff #2e9ef4     #232323
+client.unfocused #343423 #252523 #ffffff #2e9ef4     #232323
+
+border_images.focused /home/rat/Downloads/shadows.png
+border_images.unfocused /home/rat/Downloads/shadows.png
+border_images.focused_inactive /home/rat/Downloads/shadows.png
+border_images.urgent /home/rat/Downloads/shadows.png
+
+# Wallpapers
+
+#output "*" bg /usr/share/backgrounds/H7GKT0n.png fill
+#output "*" bg $HOME/Downloads/5b1iuo0xlth61.png fill
+#output "*" bg $HOME/Downloads/9ee5vortpqv81.jpg fill
+#output "*" bg $HOME/Downloads/uh2y22d7vzr61.jpg fill
+output "*" bg $HOME/Downloads/gc5y7xhdenv81.jpg fill
+#output "*" bg $HOME/Downloads/gruvbox-forest fill
+#output "*" bg $HOME/Downloads/highway-turn-road-rainy-156061568 fill
+#output "*" bg $HOME/Downloads/i2gb4m7j7cb41.png fill
+#output "*" bg $HOME/Downloads/jvs9j0xke0f61.jpg fill
+
+# Gaps
+
+default_border none
+gaps inner 32
+gaps outer 0
+
+	## System Navigation
+
+#SOV
+#bindsym Alt+1 workspace number 1
+
+
+bindsym --no-repeat $mod+1 workspace number 1; exec "echo 1 > /tmp/sovpipe"
+bindsym --no-repeat $mod+2 workspace number 2; exec "echo 1 > /tmp/sovpipe"
+bindsym --no-repeat $mod+3 workspace number 3; exec "echo 1 > /tmp/sovpipe"
+bindsym --no-repeat $mod+4 workspace number 4; exec "echo 1 > /tmp/sovpipe"
+bindsym --no-repeat $mod+5 workspace number 5; exec "echo 1 > /tmp/sovpipe"
+bindsym --no-repeat $mod+6 workspace number 6; exec "echo 1 > /tmp/sovpipe"
+bindsym --no-repeat $mod+7 workspace number 7; exec "echo 1 > /tmp/sovpipe"
+bindsym --no-repeat $mod+8 workspace number 8; exec "echo 1 > /tmp/sovpipe"
+bindsym --no-repeat $mod+9 workspace number 9; exec "echo 1 > /tmp/sovpipe"
+bindsym --no-repeat $mod+0 workspace number 10; exec "echo 1 > /tmp/sovpipe"
+
+bindsym --release $mod+1 exec "echo 0 > /tmp/sovpipe"
+bindsym --release $mod+2 exec "echo 0 > /tmp/sovpipe"
+bindsym --release $mod+3 exec "echo 0 > /tmp/sovpipe"
+bindsym --release $mod+4 exec "echo 0 > /tmp/sovpipe"
+bindsym --release $mod+5 exec "echo 0 > /tmp/sovpipe"
+bindsym --release $mod+6 exec "echo 0 > /tmp/sovpipe"
+bindsym --release $mod+7 exec "echo 0 > /tmp/sovpipe"
+bindsym --release $mod+8 exec "echo 0 > /tmp/sovpipe"
+bindsym --release $mod+9 exec "echo 0 > /tmp/sovpipe"
+bindsym --release $mod+0 exec "echo 0 > /tmp/sovpipe"
+
+bindsym $mod+grave exec "dunstctl history-pop"
+bindsym $mod+Escape exec "dunstctl close"
+
+bindsym $mod+a exec "nwg-drawer"
+bindsym $mod+Return exec "kitty"
+bindsym $mod+y exec $term
+bindsym $mod+Shift+q kill && exec "clipman restore"
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+l [class="Emacs"] kill
+#bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+bindsym $mod+Shift+e exec nwg-bar
+
+# Move your focus around
+
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+
+# Or use $mod+[up|down|left|right]
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move the focused window with the same, but add Shift
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+# Ditto, with arrow keys
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+bindsym Alt+1 move container to workspace number 1; workspace number 1
+bindsym Alt+2 move container to workspace number 2; workspace number 2
+bindsym Alt+3 move container to workspace number 3; workspace number 3
+bindsym Alt+4 move container to workspace number 4; workspace number 4
+bindsym Alt+5 move container to workspace number 5; workspace number 5
+bindsym Alt+6 move container to workspace number 6; workspace number 6
+bindsym Alt+7 move container to workspace number 7; workspace number 7
+bindsym Alt+8 move container to workspace number 8; workspace number 8
+bindsym Alt+9 move container to workspace number 9; workspace number 9
+bindsym Alt+0 move container to workspace number 10; workspace number 10
+
+
+# You can "split" the current object of your focus with
+# $mod+b or $mod+v, for horizontal and vertical splits
+# respectively.
+bindsym $mod+b splith
+bindsym $mod+v splitv
+# Switch the current container between different layout styles
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+# Make the current focus fullscreen
+bindsym $mod+f fullscreen
+
+# Toggle the current focus between tiling and floating mode
+bindsym $mod+Shift+space floating toggle
+
+# Swap focus between the tiling area and the floating area
+bindsym $mod+space focus mode_toggle
+# Move focus to the parent container
+#bindsym $mod+Shift+a focus parent
+
+# Scratchpad:
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+mode "resize" {
+    # Normal
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    # Or with Shift for faster movement
+    bindsym $mod+$left resize shrink width 50px
+    bindsym $mod+$down resize grow height 50px
+    bindsym $mod+$up resize shrink height 50px
+    bindsym $mod+$right resize grow width 50px
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+p mode "default"
+}
+bindsym $mod+p mode "resize"
+bindsym $mod+Shift+Tab exec fuzzel --log-colorize=always -b 232323cc -t ccff99cc -s 565656cc -S ddffcccc -r 18 -C ccff99cc
+#bindsym $mod+Shift+Tab exec fuzzel --log-colorize=always -b 232323ff -t ccff99ff -s 565656ff -S ddffccff -r 18 -C ccff99ff
+bindsym $mod+Tab exec $menu -theme gruvbox-dark -font "Product Sans 12" -line-padding 0 -width 30 -seperator-style none -show combi,run,window
+#set $mode_gaps Toggle gaps: (1) off (2) very little (3) little (4)  very
+bindsym $mod+u mode "$mode_gaps"
+mode "$mode_gaps" {
+    bindsym 1 mode "default", gaps inner all set 0, gaps outer all set 0
+    bindsym 2 mode "default", gaps inner all set 8, gaps outer all set 0
+    bindsym 3 mode "default", gaps inner all set 16, gaps outer all set 0
+    bindsym 4 mode "default", gaps inner all set 24, gaps outer all set 0
+    bindsym 5 mode "default", gaps inner all set 32, gaps outer all set 0
+    bindsym 6 mode "default", gaps inner all set 48, gaps outer all set 0
+    bindsym 7 mode "default", gaps inner all set 64, gaps outer all set 0
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+set $opacity 0.5
+
+bindsym $mod+Alt+a exec "sgtk-menu"
+bindsym Alt+Shift+o exec "grimshot copy area"
+
+bindsym Alt+Tab workspace next_on_output
+#exec "echo 1 > /tmp/sovpipe"
+bindsym Alt+Shift+Tab workspace prev_on_output
+bindsym --release Alt+Tab exec $HOME/.bash
+#bindsym Alt exec "echo 0 > /tmp/sovpipe"
+
+
+bindsym Control+Tab exec "./sway-overfocus group-rw group-dw"
+bindsym Control+Shift+tab exec "./sway-overfocus group-lw group-uw"
+
+	## Temp
+#bindsym $mod+Shift+q exec "clipman restore"
+
+	## Startup
+
+exec sudo teamviewer --daemon start
+exec teamviewer --daemon start
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec copyq
+exec gsettings set org.gnome.desktop.interface enable-animations true
+exec "waybar"
+exec "mount /dev/sda1 /mnt/sda"
+exec "sh /bin/xmod.sh"
+exec --no-startup-id discord --start-minimized
+exec "clipit"
+exec "dunst"
+exec "mpv Beacon\ Activate\ \(Minecraft\ Sound\)\ -\ Sound\ Effect\ for\ editing\ \[9DWovjszhdc\].m4a"
+exec "nwg-dock -d -nolauncher -nows"
+exec "wl-paste -t text --watch clipman store --no-persist"
+exec "autotiling"
+exec "rm -f /tmp/sovpipe && mkfifo /tmp/sovpipe && tail -f /tmp/sovpipe | sov"
+exec --no-startup-id "pipewire"
+exec gnome-keyring-daemon --start
+exec "easyeffects"
+exec "sworkstyle"
